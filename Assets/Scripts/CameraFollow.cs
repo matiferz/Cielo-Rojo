@@ -5,12 +5,15 @@ public class CameraFollow : MonoBehaviour
     public Transform player;
     public float suavizado = 5f;
 
-    private float posicionY;
+    public float limiteIzquierdo = -4f;
+    public float limiteDerecho = 4f;
+    public float limiteInferior = -2f;
+    public float limiteSuperior = 2f;
+
     private float posicionZ;
 
     void Start()
     {
-        posicionY = transform.position.y;
         posicionZ = transform.position.z;
     }
 
@@ -19,9 +22,21 @@ public class CameraFollow : MonoBehaviour
         if (player == null)
             return;
 
-        Vector3 posicionObjetivo = new Vector3(
+        float nuevaX = Mathf.Clamp(
             player.position.x,
-            posicionY,
+            limiteIzquierdo,
+            limiteDerecho
+        );
+
+        float nuevaY = Mathf.Clamp(
+            player.position.y,
+            limiteInferior,
+            limiteSuperior
+        );
+
+        Vector3 posicionObjetivo = new Vector3(
+            nuevaX,
+            nuevaY,
             posicionZ
         );
 

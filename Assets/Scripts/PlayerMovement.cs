@@ -4,59 +4,44 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 0.5f;
 
-    private Rigidbody2D rb;
-    private float horizontalInput;
+    public float limiteIzquierdo = -5f;
+    public float limiteDerecho = 5f;
+    public float limiteInferior = -3f;
+    public float limiteSuperior = 3f;
 
-    private Camera cam;
-    private float mitadAnchoPlayer;
+    private Rigidbody2D rb;
+    private Vector2 movimiento;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        cam = Camera.main;
-
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        mitadAnchoPlayer = spriteRenderer.bounds.extents.x;
     }
 
     void Update()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
+        float movimientoX = Input.GetAxisRaw("Horizontal");
+        float movimientoY = Input.GetAxisRaw("Vertical");
+
+        movimiento = new Vector2(movimientoX, movimientoY).normalized;
     }
 
     void FixedUpdate()
     {
-        float nuevaX =
-            rb.position.x +
-            horizontalInput * speed * Time.fixedDeltaTime;
+        Vector2 nuevaPosicion =
+            rb.position + movimiento * speed * Time.fixedDeltaTime;
 
-        float distanciaCamara =
-            Mathf.Abs(cam.transform.position.z - transform.position.z);
-
-        Vector3 bordeIzquierdo =
-            cam.ViewportToWorldPoint(
-                new Vector3(0f, 0.5f, distanciaCamara)
-            );
-
-        Vector3 bordeDerecho =
-            cam.ViewportToWorldPoint(
-                new Vector3(1f, 0.5f, distanciaCamara)
-            );
-
-        float limiteIzquierdo =
-            bordeIzquierdo.x + mitadAnchoPlayer;
-
-        float limiteDerecho =
-            bordeDerecho.x - mitadAnchoPlayer;
-
-        nuevaX = Mathf.Clamp(
-            nuevaX,
+        nuevaPosicion.x = Mathf.Clamp(
+            nuevaPosicion.x,
             limiteIzquierdo,
             limiteDerecho
         );
 
-        rb.MovePosition(
-            new Vector2(nuevaX, rb.position.y)
+        nuevaPosicion.y = Mathf.Clamp(
+            nuevaPosicion.y,
+            limiteInferior,
+            limiteSuperior
         );
+
+        rb.MovePosition(nuevaPosicion);
     }
 }
