@@ -7,6 +7,7 @@ public class sceneManager_platformer : MonoBehaviour
     void Start()
     {
         //Aplicar script de la resolución
+        Screen.SetResolution(1920, 1080, true);
     }
     
     void Update()

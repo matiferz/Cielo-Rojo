@@ -2,48 +2,15 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform player;
-    public float suavizado = 5f;
+    [SerializeField] private Transform target; // Acá en vez de un GameObject entero, seleccionamos el componente Transform de un GameObject para poder manipularlo
+    [SerializeField] private float smooth; // Variable que vamos a utilizar luego programar un movimiento de cámara más suave
+    [SerializeField] private Vector3 offset; // Debe coincidir el valor Z del código con el valor Z del Transform de la cámara
 
-    public float limiteIzquierdo = -4f;
-    public float limiteDerecho = 4f;
-    public float limiteInferior = -2f;
-    public float limiteSuperior = 2f;
-
-    private float posicionZ;
-
-    void Start()
+    private void FixedUpdate()
     {
-        posicionZ = transform.position.z;
+        Vector3 desiredPosition = target.position + offset;
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smooth);
+        transform.position = smoothedPosition;
     }
 
-    void LateUpdate()
-    {
-        if (player == null)
-            return;
-
-        float nuevaX = Mathf.Clamp(
-            player.position.x,
-            limiteIzquierdo,
-            limiteDerecho
-        );
-
-        float nuevaY = Mathf.Clamp(
-            player.position.y,
-            limiteInferior,
-            limiteSuperior
-        );
-
-        Vector3 posicionObjetivo = new Vector3(
-            nuevaX,
-            nuevaY,
-            posicionZ
-        );
-
-        transform.position = Vector3.Lerp(
-            transform.position,
-            posicionObjetivo,
-            suavizado * Time.deltaTime
-        );
-    }
 }
