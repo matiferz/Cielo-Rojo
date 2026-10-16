@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Debug.Log("¡Le diste a un enemigo!");
-            Destroy(gameObject);
+            Destroy(other.gameObject);
         }
     }
 }
