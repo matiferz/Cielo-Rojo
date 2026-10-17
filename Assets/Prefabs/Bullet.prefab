@@ -180,4 +180,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef47610e464ab241a168a1a46f24645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  lifetime: 3
+  pointsToAdd: 1
+  player: {fileID: 0}

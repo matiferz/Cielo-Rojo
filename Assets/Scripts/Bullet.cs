@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float lifetime = 3f;
+    //[SerializeField] private float lifetime = 3f;
+    public int pointsToAdd;
+    public GameObject player;
 
-    void Start()
+    /*void Start()
     {
         Destroy(gameObject, lifetime);
     }
+    */
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -16,6 +19,8 @@ public class Bullet : MonoBehaviour
         {
             Debug.Log("¡Le diste a un enemigo!");
             Destroy(other.gameObject);
+            PointSytem.Instance.AddingPoints(pointsToAdd);
+            player.GetComponent<HP>().GainHealth(1);
         }
     }
 }
