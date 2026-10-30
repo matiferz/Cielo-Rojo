@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
@@ -7,6 +6,9 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private float bulletSpeed = 10f;
     [SerializeField] private float fireRate = 0.3f;
+
+    public AudioSource sonidoDisparo; // Variable agregada para vincular el componente
+    public AudioClip clipDisparo;
 
     private float nextFireTime;
 
@@ -30,6 +32,9 @@ public class PlayerShoot : MonoBehaviour
             firePoint.position,
             firePoint.rotation
         );
+
+        sonidoDisparo.PlayOneShot(clipDisparo);
+        Debug.Log("Disparo OK");
 
         Rigidbody2D rb =
             bullet.GetComponent<Rigidbody2D>();

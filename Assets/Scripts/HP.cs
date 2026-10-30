@@ -8,6 +8,8 @@ public class HP : MonoBehaviour
 
     // Referencia al script que controla el parpadeo del Player
     private PlayerDamageFlash damageFlash;
+    public AudioSource audioSource;
+    public AudioClip clipDanio;
 
     private void Start()
     {
@@ -24,6 +26,9 @@ public class HP : MonoBehaviour
         HPAmount -= damage; // Actualizamos la cantidad de HP según el daño que nos hacen aka la salud que nos quitan
 
         HPBar.Instance.ChangeCurrentHP(HPAmount); // Actualizamos ese dato en la interfaz visual
+
+        // Reproducimos el sonido de recibir daño
+        audioSource.PlayOneShot(clipDanio);
 
         //  Cuando el Player recibe daño, activamos el efecto de parpadeo
         if (damageFlash != null)

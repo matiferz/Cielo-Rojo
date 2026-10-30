@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: c061cc3084c9ba84896c8b1c46153719
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - hpbar: {instanceID: 0}
+  - audioSource: {instanceID: 0}
+  - clipDanio: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
