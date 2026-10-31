@@ -3,7 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class sceneManager_platformer : MonoBehaviour
 {
-    public GameObject deactivateObj;
+    public static sceneManager_platformer Instance;
+
+    public GameObject deactivateObj; 
+    public GameObject gameOverM;
 
     void Start()
     {
@@ -47,6 +50,12 @@ public class sceneManager_platformer : MonoBehaviour
     {
         Time.timeScale = 1;
         deactivateObj.SetActive(false);
+    }
+
+    void GameOver()
+    {
+        Time.timeScale = 0;
+        gameOverM.SetActive(true);
     }
 }
 
