@@ -6,7 +6,7 @@ using UnityEngine;
 public class Spawn : MonoBehaviour
 {
     [SerializeField] private GameObject[] _toSpawn;
-    [SerializeField] private float secondSpawn = 0.7f;
+    [SerializeField] private float secondSpawn = 0.3f;
     [SerializeField] private float minTras;
     [SerializeField] private float maxTras;
 
@@ -17,20 +17,8 @@ public class Spawn : MonoBehaviour
 
     void Update()
     {
-        if (Score.score >= 25 && Score.score <= 50)
-        {
-            secondSpawn = 1f;
-        }
 
-        else if (Score.score >= 51 && Score.score <= 75)
-        {
-            secondSpawn = 1.4f;
-        }
-
-        else if (Score.score >= 76 && Score.score < 100)
-        {
-            secondSpawn = 1.2f;
-        }
+        secondSpawn = 1f;
     }
 
     IEnumerator ObjectSpawn()
@@ -38,7 +26,7 @@ public class Spawn : MonoBehaviour
         while (true)
         {
             var wanted = Random.Range(minTras, maxTras);
-            var position = new Vector3(wanted, wanted);
+            var position = new Vector2(wanted, wanted);
             GameObject objectSpawning = Instantiate(_toSpawn[Random.Range(0, _toSpawn.Length)], position, Quaternion.identity);
             yield return new WaitForSeconds(secondSpawn);
         }

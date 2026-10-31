@@ -3,7 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class sceneManager_platformer : MonoBehaviour
 {
-    
+    public GameObject deactivateObj;
+
     void Start()
     {
         //Aplicar script de la resolución
@@ -20,6 +21,10 @@ public class sceneManager_platformer : MonoBehaviour
         {
             Exit();
         }
+        if (Input.GetKey(KeyCode.P))
+        {
+            Pause();
+        }
     }
 
     void Restart()
@@ -27,9 +32,21 @@ public class sceneManager_platformer : MonoBehaviour
         SceneManager.LoadScene("Nivel 1");
     }
 
+    void Pause()
+    {
+        Time.timeScale = 0;
+        deactivateObj.SetActive(true);
+    }
+
     void Exit()
     {
         Application.Quit();
+    }
+
+     public void Resume()
+    {
+        Time.timeScale = 1;
+        deactivateObj.SetActive(false);
     }
 }
 
