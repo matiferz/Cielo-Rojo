@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8313133393421087330}
   - component: {fileID: 559312925978679684}
   - component: {fileID: 978546363386463049}
+  - component: {fileID: -6777431842249123635}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Enemy
@@ -170,3 +171,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::substractPoints
   pointsToSubstract: 1
+--- !u!114 &-6777431842249123635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514369202072935197}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd7c79064b013e499fbe561e05f66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
+  speed: 1

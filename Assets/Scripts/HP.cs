@@ -11,36 +11,55 @@ public class HP : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip clipDanio;
 
+    // NUEVO: Variable para asignar el panel de Game Over
+    public GameObject pantallaGameOver;
+
     private void Start()
     {
-        HPAmount = MaxHP; // Inicializamos la variable HPAmount con el valor máximo (dado que vamos a buscar restarle)
+        HPAmount = MaxHP; // Inicializamos la variable HPAmount con el valor máximo
 
-        HPBar.Instance.InitializeHPBar(HPAmount); // De la clase "HPBar" traemos la función de inicialización de la barra, la misma va a cargarse con la cantidad inicial de HP, correspondiéndose con lo de arriba
+        HPBar.Instance.InitializeHPBar(HPAmount); // Inicializamos la barra visual
 
-        // NUEVO: Obtenemos el componente PlayerDamageFlash del avión
+        // Obtenemos el componente PlayerDamageFlash del avión
         damageFlash = GetComponent<PlayerDamageFlash>();
     }
 
     public void TakeDamage(int damage) // Código para recibir daño
     {
-        HPAmount -= damage; // Actualizamos la cantidad de HP según el daño que nos hacen aka la salud que nos quitan
+        HPAmount -= damage; // Restamos la salud
 
-        HPBar.Instance.ChangeCurrentHP(HPAmount); // Actualizamos ese dato en la interfaz visual
+        HPBar.Instance.ChangeCurrentHP(HPAmount); // Actualizamos la interfaz
 
         // Reproducimos el sonido de recibir daño
         audioSource.PlayOneShot(clipDanio);
 
-        //  Cuando el Player recibe daño, activamos el efecto de parpadeo
+        
         if (damageFlash != null)
         {
             damageFlash.Parpadear();
         }
+
+        
+        if (HPAmount <= 0)
+        {
+            Die();
+        }
     }
 
-    public void GainHealth(int health) // Código para ganar salud, funciona de igual manera que arriba pero suma en vez de restar
+    public void GainHealth(int health) // Código para ganar salud
     {
         HPAmount += health;
-
         HPBar.Instance.ChangeCurrentHP(HPAmount);
+    }
+
+    private void Die()
+    {
+        if (pantallaGameOver != null)
+        {
+            pantallaGameOver.SetActive(true); // Enciende la pantalla de Game Over
+        }
+
+        Time.timeScale = 0f; // Congela el tiempo para que los enemigos y el fondo paren
+        Destroy(gameObject); // Destruye el objeto del Player
     }
 }

@@ -15,18 +15,20 @@ public class Spawn : MonoBehaviour
         StartCoroutine(ObjectSpawn());
     }
 
-    void Update()
+    /*void Update()
     {
 
         secondSpawn = 1f;
     }
+    */
 
     IEnumerator ObjectSpawn()
     {
         while (true)
         {
-            var wanted = Random.Range(minTras, maxTras);
-            var position = new Vector2(wanted, wanted);
+            float randomX = Random.Range(minTras, maxTras);
+            float randomY = Random.Range(minTras, maxTras);
+            var position = new Vector2(randomX, randomY);
             GameObject objectSpawning = Instantiate(_toSpawn[Random.Range(0, _toSpawn.Length)], position, Quaternion.identity);
             yield return new WaitForSeconds(secondSpawn);
         }
